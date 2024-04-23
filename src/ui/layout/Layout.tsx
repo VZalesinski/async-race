@@ -10,10 +10,10 @@ export const Layout = () => {
     <ANTDLayout>
       <Header style={{ display: 'flex', alignItems: 'center' }}>
         <Flex gap="middle" align="center">
-          <Button size="large" onClick={() => navigate('/')}>
+          <Button size="large" onClick={() => navigate('/async-race')}>
             Garage
           </Button>
-          <Button size="large" onClick={() => navigate('/winners')}>
+          <Button size="large" onClick={() => navigate('/async-race/winners')}>
             Winners
           </Button>
         </Flex>
