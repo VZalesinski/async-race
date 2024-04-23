@@ -18,7 +18,7 @@ export async function getAllCars() {
 
 export async function createCar(name: string, color: string) {
   try {
-    const response = await fetch(`${API_URL}/garage`, {
+    await fetch(`${API_URL}/garage`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,9 +28,16 @@ export async function createCar(name: string, color: string) {
         color: color,
       }),
     });
-    const car = await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-    console.log(car);
+export async function deleteCar(id: number) {
+  try {
+    await fetch(`${API_URL}/garage/${id}`, {
+      method: 'DELETE',
+    });
   } catch (error) {
     console.error(error);
   }

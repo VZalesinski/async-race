@@ -1,12 +1,14 @@
 import { Button, Flex, Typography } from 'antd';
 import { FC } from 'react';
+import { deleteCar } from '../../../api';
 
 type TItemCar = {
   title: string;
   color: string;
+  id: number;
 };
 
-export const ItemCar: FC<TItemCar> = ({ title, color }) => {
+export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
   return (
     <Flex vertical>
       <Typography.Title level={5} style={{ color: color }}>
@@ -18,7 +20,12 @@ export const ItemCar: FC<TItemCar> = ({ title, color }) => {
           <Button size="small" type="primary">
             select
           </Button>
-          <Button size="small" danger type="primary">
+          <Button
+            size="small"
+            danger
+            type="primary"
+            onClick={() => deleteCar(id)}
+          >
             remove
           </Button>
         </Flex>

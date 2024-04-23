@@ -16,6 +16,6 @@ export const ListItemsCar = () => {
   }, []);
 
   return cars.map((item) => (
-    <ItemCar key={item.id} title={item.name} color={item.color} />
+    <ItemCar key={item.id} title={item.name} color={item.color} id={item.id} />
   ));
 };
