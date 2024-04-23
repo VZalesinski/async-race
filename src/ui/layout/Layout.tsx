@@ -10,16 +10,24 @@ export const Layout = () => {
     <ANTDLayout>
       <Header style={{ display: 'flex', alignItems: 'center' }}>
         <Flex gap="middle" align="center">
-          <Button size="large" onClick={() => navigate('/async-race')}>
+          <Button
+            size="large"
+            type="primary"
+            onClick={() => navigate('/async-race')}
+          >
             Garage
           </Button>
-          <Button size="large" onClick={() => navigate('/async-race/winners')}>
+          <Button
+            size="large"
+            type="primary"
+            onClick={() => navigate('/async-race/winners')}
+          >
             Winners
           </Button>
         </Flex>
       </Header>
 
-      <Content style={{ padding: '0 48px' }}>
+      <Content style={{ padding: '50px' }}>
         <Outlet />
       </Content>
     </ANTDLayout>
