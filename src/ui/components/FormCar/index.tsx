@@ -4,11 +4,13 @@ import { Hue, Saturation, useColor } from 'react-color-palette';
 import 'react-color-palette/css';
 
 type TFormCar = {
+  type: 'create' | 'update';
   text: string;
-  onClick: (name: string, color: string) => void;
+  onCreate?: (name: string, color: string) => void;
+  onUpdate?: (name: string, color: string, id: number) => void;
 };
 
-export const FormCar: FC<TFormCar> = ({ text, onClick }) => {
+export const FormCar: FC<TFormCar> = ({ type, text, onCreate, onUpdate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [name, setName] = useState('');
   const [color, setColor] = useColor('#561ecb');
@@ -26,7 +28,8 @@ export const FormCar: FC<TFormCar> = ({ text, onClick }) => {
   };
 
   const handleClick = () => {
-    onClick(name, color.hex);
+    if (onCreate && type === 'create') onCreate(name, color.hex);
+    if (onUpdate && type === 'update') onUpdate(name, color.hex, id);
     setName('');
   };
   return (
@@ -46,7 +49,6 @@ export const FormCar: FC<TFormCar> = ({ text, onClick }) => {
           <Flex align="center" gap={8} wrap="wrap">
             <Input
               placeholder="Type car brand"
-              // value={name}
               onChange={(value) => setName(value.target.value)}
             />
             <Input

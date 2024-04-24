@@ -1,6 +1,6 @@
 import { Button, Flex, Typography } from 'antd';
 import { FC } from 'react';
-import { deleteCar } from '../../../api';
+import { deleteCar } from '../../../api/api';
 
 type TItemCar = {
   title: string;

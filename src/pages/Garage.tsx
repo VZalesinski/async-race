@@ -24,7 +24,7 @@ export const Garage = () => {
       <Flex gap="middle" wrap="wrap" justify="flex-end">
         <CreateCar />
 
-        <UpdateCar />
+        {/* <UpdateCar /> */}
       </Flex>
 
       <Flex vertical gap="middle">

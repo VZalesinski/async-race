@@ -1,21 +1,23 @@
-import { useEffect, useState } from 'react';
-import { getAllCars } from '../../api';
-import { CarsData } from '../../api/types';
+import { useGetCarsQuery } from '../../api';
 import { ItemCar } from '../../ui/components';
+import { Alert, Spin } from 'antd';
 
 export const ListItemsCar = () => {
-  const [cars, setCars] = useState<CarsData[]>([]);
+  const { data = [], isLoading, isError } = useGetCarsQuery(8);
 
-  useEffect(() => {
-    async function fetchData() {
-      const cars = await getAllCars();
-      setCars(cars);
-    }
+  if (isLoading) return <Spin size="large" />;
 
-    fetchData();
-  }, []);
+  if (isError)
+    return (
+      <Alert
+        message="Error"
+        description="Something went wrong."
+        type="error"
+        showIcon
+      />
+    );
 
-  return cars.map((item) => (
+  return data.map((item) => (
     <ItemCar key={item.id} title={item.name} color={item.color} id={item.id} />
   ));
 };
