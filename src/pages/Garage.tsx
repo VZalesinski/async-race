@@ -1,6 +1,6 @@
 import { Button, Flex } from 'antd';
 import { PlayCircleOutlined, ReloadOutlined } from '@ant-design/icons';
-import { CreateCar, ListItemsCar, UpdateCar } from '../widget';
+import { CreateCar, ListItemsCar } from '../widget';
 
 export const Garage = () => {
   return (

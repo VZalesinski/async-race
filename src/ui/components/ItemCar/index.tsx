@@ -1,6 +1,7 @@
 import { Button, Flex, Typography } from 'antd';
 import { FC } from 'react';
-import { deleteCar } from '../../../api/api';
+// import { deleteCar } from '../../../api/api';
+import { useDeleteCarMutation } from '../../../api';
 
 type TItemCar = {
   title: string;
@@ -9,6 +10,7 @@ type TItemCar = {
 };
 
 export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
+  const [deleteCar] = useDeleteCarMutation();
   return (
     <Flex vertical>
       <Typography.Title level={5} style={{ color: color }}>
@@ -24,7 +26,7 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
             size="small"
             danger
             type="primary"
-            onClick={() => deleteCar(id)}
+            onClick={() => deleteCar({ id })}
           >
             remove
           </Button>

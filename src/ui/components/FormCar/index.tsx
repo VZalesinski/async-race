@@ -10,7 +10,7 @@ type TFormCar = {
   onUpdate?: (name: string, color: string, id: number) => void;
 };
 
-export const FormCar: FC<TFormCar> = ({ type, text, onCreate, onUpdate }) => {
+export const FormCar: FC<TFormCar> = ({ type, text, onCreate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [name, setName] = useState('');
   const [color, setColor] = useColor('#561ecb');

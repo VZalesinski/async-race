@@ -22,8 +22,15 @@ export const carsApi = createApi({
       }),
       invalidatesTags: ['Car'],
     }),
-    // deleteCar: build.mutation,
+    deleteCar: build.mutation<TCar, { id: number }>({
+      query: (body) => ({
+        url: `garage/${body.id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Car'],
+    }),
   }),
 });
 
-export const { useGetCarsQuery, useCreateCarMutation } = carsApi;
+export const { useGetCarsQuery, useCreateCarMutation, useDeleteCarMutation } =
+  carsApi;

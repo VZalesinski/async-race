@@ -2,5 +2,6 @@
 // import { FormCar } from '../../ui/components';
 
 // export const UpdateCar = () => {
-//   return <FormCar type="update" text="Update" onClick={updateCar} />;
+
+//   return <FormCar type="update" text="Update" onUpdate={updateCar} />;
 // };
