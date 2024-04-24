@@ -1,6 +1,11 @@
-import { createCar } from '../../api';
+import { useCreateCarMutation } from '../../api';
 import { FormCar } from '../../ui/components';
 
 export const CreateCar = () => {
-  return <FormCar type="create" text="Create" onClick={createCar} />;
+  const [createCar] = useCreateCarMutation();
+
+  const handleCreateCar = (name: string, color: string) => {
+    createCar({ name, color });
+  };
+  return <FormCar type="create" text="Create" onCreate={handleCreateCar} />;
 };

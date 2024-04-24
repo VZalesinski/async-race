@@ -27,9 +27,9 @@ export const FormCar: FC<TFormCar> = ({ type, text, onCreate, onUpdate }) => {
     setIsModalOpen(false);
   };
 
-  const handleClick = () => {
-    if (onCreate && type === 'create') onCreate(name, color.hex);
-    if (onUpdate && type === 'update') onUpdate(name, color.hex, id);
+  const handleClick = async () => {
+    if (onCreate && type === 'create') await onCreate(name, color.hex);
+    // if (onUpdate && type === 'update') onUpdate(name, color.hex, id);
     setName('');
   };
   return (
