@@ -7,8 +7,8 @@ export const carsApi = createApi({
   reducerPath: 'carsApi',
   baseQuery: fetchBaseQuery({ baseUrl: `${API_URL}` }),
   endpoints: (build) => ({
-    getCars: build.query<TCar[], number>({
-      query: (limit: number) => `/garage?limit=${limit}`,
+    getCars: build.query<TCar[], { limit: number; page: number }>({
+      query: ({ limit, page }) => `/garage?_limit=${limit}&_page=${page}`,
       providesTags: ['Car'],
     }),
     createCar: build.mutation<TCar, { name: string; color: string }>({
