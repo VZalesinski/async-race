@@ -1,5 +1,5 @@
-import { useGetCarsQuery } from '../../api';
-import { ItemCar } from '../../ui/components';
+import { useGetCarsQuery } from '@/api';
+import { ItemCar } from '@/ui/components';
 import { Alert, Spin } from 'antd';
 
 export const ListItemsCar = () => {

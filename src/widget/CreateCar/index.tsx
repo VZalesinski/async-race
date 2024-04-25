@@ -1,5 +1,5 @@
-import { useCreateCarMutation } from '../../api';
-import { FormCar } from '../../ui/components';
+import { useCreateCarMutation } from '@/api';
+import { FormCar } from '@/ui/components';
 
 export const CreateCar = () => {
   const [createCar] = useCreateCarMutation();

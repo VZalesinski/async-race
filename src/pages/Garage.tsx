@@ -1,6 +1,6 @@
 import { Button, Flex } from 'antd';
 import { PlayCircleOutlined, ReloadOutlined } from '@ant-design/icons';
-import { CreateCar, ListItemsCar } from '../widget';
+import { CreateCar, ListItemsCar, UpdateCar } from '@/widget';
 
 export const Garage = () => {
   return (
@@ -24,7 +24,7 @@ export const Garage = () => {
       <Flex gap="middle" wrap="wrap" justify="flex-end">
         <CreateCar />
 
-        {/* <UpdateCar /> */}
+        <UpdateCar />
       </Flex>
 
       <Flex vertical gap="middle">

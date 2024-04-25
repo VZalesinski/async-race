@@ -1,7 +1,9 @@
 import { Button, Flex, Typography } from 'antd';
 import { FC } from 'react';
 // import { deleteCar } from '../../../api/api';
-import { useDeleteCarMutation } from '../../../api';
+import { useDeleteCarMutation } from '@/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, setCarId } from '@/store';
 
 type TItemCar = {
   title: string;
@@ -10,7 +12,13 @@ type TItemCar = {
 };
 
 export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
+  const dispatch = useDispatch();
   const [deleteCar] = useDeleteCarMutation();
+  const car = useSelector((state: RootState) => state.car.id);
+
+  const selectCar = () => {
+    dispatch(setCarId(id));
+  };
   return (
     <Flex vertical>
       <Typography.Title level={5} style={{ color: color }}>
@@ -19,7 +27,12 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
 
       <Flex gap="small">
         <Flex vertical gap="small">
-          <Button size="small" type="primary">
+          <Button
+            size="small"
+            type="primary"
+            onClick={selectCar}
+            disabled={car === id}
+          >
             select
           </Button>
           <Button

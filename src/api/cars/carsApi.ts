@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API_URL } from '../../utils';
+import { API_URL } from '@/utils';
 import { TCar } from './types';
 
 export const carsApi = createApi({
@@ -29,8 +29,23 @@ export const carsApi = createApi({
       }),
       invalidatesTags: ['Car'],
     }),
+    updateCar: build.mutation<TCar, TCar>({
+      query: (body) => ({
+        url: `garage/${body.id}`,
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body,
+      }),
+      invalidatesTags: ['Car'],
+    }),
   }),
 });
 
-export const { useGetCarsQuery, useCreateCarMutation, useDeleteCarMutation } =
-  carsApi;
+export const {
+  useGetCarsQuery,
+  useCreateCarMutation,
+  useDeleteCarMutation,
+  useUpdateCarMutation,
+} = carsApi;

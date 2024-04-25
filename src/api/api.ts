@@ -1,4 +1,4 @@
-import { API_URL } from '../utils';
+import { API_URL } from '@/utils';
 
 export async function getAllCars() {
   try {

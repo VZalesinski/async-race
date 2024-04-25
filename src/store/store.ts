@@ -1,12 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { carsApi } from '../api/cars/carsApi';
+import carReducer from './carSlice';
+import { carsApi } from '@/api';
 
 export const store = configureStore({
   reducer: {
     [carsApi.reducerPath]: carsApi.reducer,
+    car: carReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(carsApi.middleware),
 });
 
-export type TypeRootStore = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
