@@ -1,16 +1,21 @@
-import { useGetCarsQuery } from '@/api';
-import { ItemCar } from '@/ui/components';
+import { useEffect, useState } from 'react';
 import { Alert, Pagination, Spin } from 'antd';
-import { useState } from 'react';
+import { ItemCar } from '@/ui/components';
+import { fetchCarsData, useGetCarsQuery } from '@/api';
 
 export const ListItemsCar = () => {
+  const [totalCount, setTotalCount] = useState<number>(0);
   const [page, setPage] = useState(1);
-  // const [startIndex, setStartIndex] = useState(0);
   const limit = 7;
   const { data = [], isLoading, isError } = useGetCarsQuery({ limit, page });
-  console.log(data);
 
-  const startIndex = (page - 1) * limit;
+  useEffect(() => {
+    const fetchTotalCountCars = async () => {
+      const data = await fetchCarsData();
+      if (data) setTotalCount(data);
+    };
+    fetchTotalCountCars();
+  }, []);
 
   if (isLoading) return <Spin size="large" />;
 
@@ -26,7 +31,7 @@ export const ListItemsCar = () => {
 
   return (
     <>
-      {data.slice(startIndex, limit).map((item) => (
+      {data.map((item) => (
         <ItemCar
           key={item.id}
           title={item.name}
@@ -36,7 +41,7 @@ export const ListItemsCar = () => {
       ))}
 
       <Pagination
-        total={data.length}
+        total={totalCount}
         showSizeChanger={false}
         simple
         pageSize={limit}
