@@ -1,5 +1,5 @@
 import { useNavigate, Outlet } from 'react-router-dom';
-import { Button, Flex, Layout as ANTDLayout } from 'antd';
+import { Button, Flex, Layout as ANTDLayout, Typography, Divider } from 'antd';
 
 const { Header, Content } = ANTDLayout;
 
@@ -27,7 +27,9 @@ export const Layout = () => {
         </Flex>
       </Header>
 
-      <Content style={{ padding: '50px', backgroundColor: '#fff' }}>
+      <Content style={{ padding: '24px 50px', backgroundColor: '#fff' }}>
+        <Typography.Title level={2}>Async Race</Typography.Title>
+        <Divider />
         <Outlet />
       </Content>
     </ANTDLayout>
