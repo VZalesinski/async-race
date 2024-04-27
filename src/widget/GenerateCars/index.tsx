@@ -1,9 +1,11 @@
 import { useCreateCarMutation } from '@/api';
+import { useTotalCars } from '@/hooks';
 import { carColors, carModels, carNames } from '@/utils';
 import { Button } from 'antd';
 
 export const GenerateCars = () => {
   const [createCar] = useCreateCarMutation();
+  const fetchTotalCountCars = useTotalCars();
 
   const generateRandomCars = async () => {
     for (let i = 0; i < 100; i++) {
@@ -16,6 +18,7 @@ export const GenerateCars = () => {
 
       await createCar({ name, color });
     }
+    await fetchTotalCountCars();
   };
 
   return (

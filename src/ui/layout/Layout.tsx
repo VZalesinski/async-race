@@ -27,7 +27,7 @@ export const Layout = () => {
         </Flex>
       </Header>
 
-      <Content style={{ padding: '50px' }}>
+      <Content style={{ padding: '50px', backgroundColor: '#fff' }}>
         <Outlet />
       </Content>
     </ANTDLayout>

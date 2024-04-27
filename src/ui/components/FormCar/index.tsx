@@ -4,6 +4,7 @@ import { Hue, Saturation, useColor } from 'react-color-palette';
 import 'react-color-palette/css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, setCarId } from '@/store';
+import { useTotalCars } from '@/hooks';
 
 type TFormCar = {
   type: 'create' | 'update';
@@ -13,10 +14,11 @@ type TFormCar = {
 };
 
 export const FormCar: FC<TFormCar> = ({ type, text, onCreate, onUpdate }) => {
+  const fetchTotalCountCars = useTotalCars();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [name, setName] = useState('');
   const [color, setColor] = useColor('#561ecb');
-  const car = useSelector((state: RootState) => state.car.id);
+  const car = useSelector((state: RootState) => state.car.carId);
   const dispatch = useDispatch();
 
   const showModal = () => {
@@ -28,7 +30,10 @@ export const FormCar: FC<TFormCar> = ({ type, text, onCreate, onUpdate }) => {
   };
 
   const handleClick = async () => {
-    if (onCreate && type === 'create') await onCreate(name, color.hex);
+    if (onCreate && type === 'create') {
+      await onCreate(name, color.hex);
+      await fetchTotalCountCars();
+    }
     if (onUpdate && type === 'update' && car) {
       await onUpdate(name, color.hex, car);
       dispatch(setCarId(null));

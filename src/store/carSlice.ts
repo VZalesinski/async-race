@@ -1,11 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface carState {
-  id: number | null;
+  carId: number | null;
+  totalCountOfCars: number | null;
 }
 
 const initialState: carState = {
-  id: null,
+  carId: null,
+  totalCountOfCars: null,
 };
 
 const carSlice = createSlice({
@@ -13,10 +15,13 @@ const carSlice = createSlice({
   initialState,
   reducers: {
     setCarId: (state, action: PayloadAction<number | null>) => {
-      state.id = action.payload;
+      state.carId = action.payload;
+    },
+    setTotalCountOfCars: (state, action: PayloadAction<number | null>) => {
+      state.totalCountOfCars = action.payload;
     },
   },
 });
 
-export const { setCarId } = carSlice.actions;
+export const { setCarId, setTotalCountOfCars } = carSlice.actions;
 export default carSlice.reducer;
