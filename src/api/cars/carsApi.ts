@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_URL } from '@/utils';
-import { TCar } from './types';
+import { TCar, TEngine } from './types';
 
 export const carsApi = createApi({
   tagTypes: ['Car'],
@@ -40,6 +40,23 @@ export const carsApi = createApi({
       }),
       invalidatesTags: ['Car'],
     }),
+    handleEngine: build.mutation<
+      TEngine,
+      { id: number; status: 'started' | 'stopped' }
+    >({
+      query: ({ id, status }) => ({
+        url: '/engine',
+        method: 'PATCH',
+        params: { id, status },
+      }),
+    }),
+    switchToDriveMode: build.mutation<{ success: boolean }, { id: number }>({
+      query: ({ id }) => ({
+        url: '/engine',
+        method: 'PATCH',
+        params: { id, status: 'drive' },
+      }),
+    }),
   }),
 });
 
@@ -48,4 +65,6 @@ export const {
   useCreateCarMutation,
   useDeleteCarMutation,
   useUpdateCarMutation,
+  useHandleEngineMutation,
+  useSwitchToDriveModeMutation,
 } = carsApi;

@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Alert, Empty, Pagination, Spin } from 'antd';
+import {
+  Alert,
+  Divider,
+  Empty,
+  Flex,
+  Pagination,
+  Spin,
+  Typography,
+} from 'antd';
 import { ItemCar } from '@/ui/components';
 import { useGetCarsQuery } from '@/api';
 import { useSelector } from 'react-redux';
@@ -36,14 +44,19 @@ export const ListItemsCar = () => {
       {data.length === 0 ? (
         <Empty description={'No cars in garage. Create new one'} />
       ) : (
-        data.map((item) => (
-          <ItemCar
-            key={item.id}
-            title={item.name}
-            color={item.color}
-            id={item.id}
-          />
-        ))
+        <Flex vertical>
+          <Flex justify="flex-end">
+            <Typography.Title level={3}>Finish</Typography.Title>
+          </Flex>
+          <div>
+            {data.map((item) => (
+              <div key={item.id}>
+                <ItemCar title={item.name} color={item.color} id={item.id} />
+                <Divider />
+              </div>
+            ))}
+          </div>
+        </Flex>
       )}
 
       <Pagination

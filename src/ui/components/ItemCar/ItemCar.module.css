@@ -1,0 +1,23 @@
+.car_race_line {
+  position: relative;
+  width: 100%;
+  height: 30px;
+}
+
+.car_position {
+  position: relative;
+  transition: all 1s ease;
+}
+
+.car_position.move {
+  /* left: 100%; */
+  transform: translate(92%, 0);
+}
+
+.finish_line {
+  position: relative;
+  right: 40px;
+  width: 1px;
+  height: 30px;
+  border-left: 1px solid #000;
+}

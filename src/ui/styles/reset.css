@@ -23,6 +23,12 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* Reapply the pointer cursor for anchor tags */
 a,
 button {

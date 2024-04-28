@@ -3,3 +3,8 @@ export type TCar = {
   name: string;
   color: string;
 };
+
+export type TEngine = {
+  distance: number;
+  velocity: number;
+};
