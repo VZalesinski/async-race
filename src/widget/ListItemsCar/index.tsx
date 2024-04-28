@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   Alert,
   Divider,
@@ -10,13 +10,14 @@ import {
 } from 'antd';
 import { ItemCar } from '@/ui/components';
 import { useGetCarsQuery } from '@/api';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, setPage } from '@/store';
 import { useTotalCars } from '@/hooks';
 
 export const ListItemsCar = () => {
   const limit = 7;
-  const [page, setPage] = useState(1);
+  const page = useSelector((state: RootState) => state.car.page);
+  const dispatch = useDispatch();
   const totalCount = useSelector(
     (state: RootState) => state.car.totalCountOfCars
   );
@@ -63,8 +64,9 @@ export const ListItemsCar = () => {
         total={totalCount ? totalCount : 0}
         showSizeChanger={false}
         simple
+        current={page}
         pageSize={limit}
-        onChange={(page) => setPage(page)}
+        onChange={(page) => dispatch(setPage(page))}
       />
     </>
   );
