@@ -1,6 +1,5 @@
 import { Flex, Input, Button, Tooltip, ColorPicker, Drawer } from 'antd';
 import { FC, useState } from 'react';
-// import { Hue, Saturation, useColor } from 'react-color-palette';
 import 'react-color-palette/css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, setCarId, setColor } from '@/store';
@@ -25,7 +24,6 @@ export const FormCar: FC<TFormCar> = ({
 }) => {
   const fetchTotalCountCars = useTotalCars();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [color, setColor] = useColor('#561ecb');
   const color = useSelector((state: RootState) => state.car.color);
   const car = useSelector((state: RootState) => state.car.carId);
   const dispatch = useDispatch();
@@ -76,11 +74,6 @@ export const FormCar: FC<TFormCar> = ({
                 onChange={(value) => setName(value.target.value)}
               />
             </div>
-            {/* <Input
-              value={`color: ${color.hex}`}
-              disabled
-              variant="borderless"
-            /> */}
             <ColorPicker
               defaultValue="#1677ff"
               value={color}

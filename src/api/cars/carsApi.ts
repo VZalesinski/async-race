@@ -50,13 +50,6 @@ export const carsApi = createApi({
         params: { id, status },
       }),
     }),
-    switchToDriveMode: build.mutation<{ success: boolean }, { id: number }>({
-      query: ({ id }) => ({
-        url: '/engine',
-        method: 'PATCH',
-        params: { id, status: 'drive' },
-      }),
-    }),
   }),
 });
 
@@ -66,5 +59,4 @@ export const {
   useDeleteCarMutation,
   useUpdateCarMutation,
   useHandleEngineMutation,
-  useSwitchToDriveModeMutation,
 } = carsApi;

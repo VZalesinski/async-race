@@ -1,11 +1,12 @@
 import { Button, Flex, Typography } from 'antd';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDeleteCarMutation, useHandleEngineMutation } from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, setCarId } from '@/store';
 import { useTotalCars } from '@/hooks';
 import { CarFilled } from '@ant-design/icons';
 import styles from './ItemCar.module.css';
+import { API_URL } from '@/utils';
 
 type TItemCar = {
   title: string;
@@ -14,15 +15,21 @@ type TItemCar = {
 };
 
 export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
-  // const [handleEngineMode, setHandleEngineMode] = useState<
-  //   'started' | 'stopped'
-  // >('started');
+  const [engineMode, setEngineMode] = useState<'started' | 'stopped' | 'drive'>(
+    'started'
+  );
   const [move, setMove] = useState(false);
   const dispatch = useDispatch();
   const [deleteCar] = useDeleteCarMutation();
   const car = useSelector((state: RootState) => state.car.carId);
   const fetchTotalCountCars = useTotalCars();
-  const [handleEngine, { data }] = useHandleEngineMutation();
+  const [handleEngine, { data: engineData }] = useHandleEngineMutation();
+
+  useEffect(() => {
+    if (engineMode === 'drive') {
+      driveAnimation(id);
+    }
+  }, [engineData]);
 
   const selectCar = () => {
     dispatch(setCarId(id));
@@ -41,9 +48,48 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
     }
   };
 
-  if (data) {
-    console.log(id, data);
-  }
+  const driveAnimation = async (id: number) => {
+    if (engineData) {
+      const time = engineData?.distance / engineData?.velocity;
+      const car = document.getElementById(`car-${id}`);
+      if (car) {
+        car.style.backgroundColor = 'none';
+        car.style.position = 'relative';
+        car.style.transition = `all ${time}ms linear`;
+        car.style.transform = 'translate(99%, 0)';
+
+        const response = await fetch(
+          `${API_URL}/engine?id=${id}&status=drive`,
+          {
+            method: 'PATCH',
+          }
+        );
+
+        if (!response.ok) {
+          if (response.status === 500) {
+            car.style.transform = 'translate(0, 0)';
+            car.style.transitionDuration = '9999s';
+            setEngineMode('stopped');
+          }
+        }
+
+        setEngineMode('stopped');
+      }
+    }
+  };
+  const resetCar = (id: string) => {
+    const car = document.getElementById(id);
+    if (car) {
+      car.style.transition = '';
+      car.style.transform = 'translate(0, 0)';
+    }
+    setEngineMode('started');
+  };
+
+  const onStartClick = () => {
+    handleControlEngine();
+    setEngineMode('drive');
+  };
 
   return (
     <Flex justify="space-between" align="center">
@@ -59,6 +105,7 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
               >
                 select
               </Button>
+
               <Button
                 size="small"
                 danger
@@ -70,10 +117,22 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
             </Flex>
 
             <Flex vertical gap="small">
-              <Button size="small" type="primary" onClick={handleControlEngine}>
+              <Button
+                size="small"
+                type="primary"
+                onClick={onStartClick}
+                disabled={engineMode !== 'started'}
+              >
                 A
               </Button>
-              <Button size="small" danger type="primary">
+
+              <Button
+                size="small"
+                danger
+                type="primary"
+                onClick={() => resetCar(`car-${id}`)}
+                disabled={engineMode === 'started'}
+              >
                 B
               </Button>
             </Flex>
@@ -85,14 +144,7 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
         </Typography.Text>
 
         <div className={styles.car_race_line}>
-          <div
-            className={
-              move
-                ? `${styles.car_position} ${styles.move}`
-                : styles.car_position
-            }
-            onClick={() => setMove(!move)}
-          >
+          <div onClick={() => setMove(!move)} id={`car-${String(id)}`}>
             <CarFilled style={{ fontSize: 30, color: color }} />
           </div>
         </div>
