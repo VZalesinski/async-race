@@ -52,7 +52,7 @@
 
 - [x] **Start Race Button (15 points):** Implement a button to start the race for all cars on the current page.
 - [x] **Reset Race Button (10 points):** Create a button to reset the race, returning all cars to their starting positions.
-- [ ] **Winner Announcement (10 points):** After some car finishes first user should see the message contains car's name that shows which one has won.
+- [x] **Winner Announcement (10 points):** After some car finishes first user should see the message contains car's name that shows which one has won.
 
 ## 🏆 Winners View (45 points)
 
