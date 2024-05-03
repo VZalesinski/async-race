@@ -1,5 +1,10 @@
 export const API_URL = 'http://127.0.0.1:3000';
 
+export const timeInSeconds = (time: number) => {
+  const result = Number((time / 1000).toFixed(2));
+  return result;
+};
+
 export const carNames = [
   'Tesla',
   'Ford',

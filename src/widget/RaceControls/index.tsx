@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Flex, Tooltip, notification } from 'antd';
 import { PlayCircleOutlined, ReloadOutlined } from '@ant-design/icons';
 import { RootState, removeAllCarsRaceArray, setIsRace } from '@/store';
+import { timeInSeconds } from '@/utils';
 
 export const RaceControls: FC = () => {
   const isRace = useSelector((state: RootState) => state.car.isRace);
@@ -18,7 +19,7 @@ export const RaceControls: FC = () => {
       });
       api['success']({
         message: `Winner: ${winner.name}`,
-        description: `Time: ${winner.time}`,
+        description: `Time: ${timeInSeconds(winner.time)}s`,
         placement: 'top',
       });
     }
