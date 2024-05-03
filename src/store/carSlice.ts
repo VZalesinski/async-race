@@ -8,6 +8,7 @@ interface carState {
   updateInputValue: string;
   color: string;
   page: number;
+  isRace: boolean;
 }
 
 const initialState: carState = {
@@ -17,6 +18,7 @@ const initialState: carState = {
   updateInputValue: '',
   color: '#561ecb',
   page: 1,
+  isRace: false,
 };
 
 const carSlice = createSlice({
@@ -41,6 +43,9 @@ const carSlice = createSlice({
     setPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload;
     },
+    setIsRace: (state, action: PayloadAction<boolean>) => {
+      state.isRace = action.payload;
+    },
   },
 });
 
@@ -51,5 +56,6 @@ export const {
   setUpdateInputValue,
   setColor,
   setPage,
+  setIsRace,
 } = carSlice.actions;
 export default carSlice.reducer;

@@ -18,12 +18,17 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
   const [engineMode, setEngineMode] = useState<'started' | 'stopped' | 'drive'>(
     'started'
   );
-  const [move, setMove] = useState(false);
   const dispatch = useDispatch();
   const [deleteCar] = useDeleteCarMutation();
   const car = useSelector((state: RootState) => state.car.carId);
+  const isRace = useSelector((state: RootState) => state.car.isRace);
   const fetchTotalCountCars = useTotalCars();
   const [handleEngine, { data: engineData }] = useHandleEngineMutation();
+
+  useEffect(() => {
+    if (isRace) onStartClick();
+    else resetCar(`car-${id}`);
+  }, [isRace]);
 
   useEffect(() => {
     if (engineMode === 'drive') {
@@ -58,22 +63,21 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
         car.style.transition = `all ${time}ms linear`;
         car.style.transform = 'translate(99%, 0)';
 
-        const response = await fetch(
-          `${API_URL}/engine?id=${id}&status=drive`,
-          {
-            method: 'PATCH',
-          }
-        );
+        if (engineMode === 'drive') {
+          const response = await fetch(
+            `${API_URL}/engine?id=${id}&status=drive`,
+            {
+              method: 'PATCH',
+            }
+          );
 
-        if (!response.ok) {
-          if (response.status === 500) {
-            car.style.transform = 'translate(0, 0)';
-            car.style.transitionDuration = '9999s';
-            setEngineMode('stopped');
+          if (!response.ok) {
+            if (response.status === 500) {
+              car.style.transform = 'translate(0, 0)';
+              car.style.transitionDuration = '9999s';
+            }
           }
         }
-
-        setEngineMode('stopped');
       }
     }
   };
@@ -144,7 +148,7 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
         </Typography.Text>
 
         <div className={styles.car_race_line}>
-          <div onClick={() => setMove(!move)} id={`car-${String(id)}`}>
+          <div id={`car-${String(id)}`}>
             <CarFilled style={{ fontSize: 30, color: color }} />
           </div>
         </div>
