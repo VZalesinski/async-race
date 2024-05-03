@@ -1,6 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 // import { IColor } from 'react-color-palette';
 
+interface winnerCar {
+  id: number;
+  name: string;
+  time: number;
+}
 interface carState {
   carId: number | null;
   totalCountOfCars: number | null;
@@ -9,6 +14,7 @@ interface carState {
   color: string;
   page: number;
   isRace: boolean;
+  raceArray: winnerCar[] | [];
 }
 
 const initialState: carState = {
@@ -19,6 +25,7 @@ const initialState: carState = {
   color: '#561ecb',
   page: 1,
   isRace: false,
+  raceArray: [],
 };
 
 const carSlice = createSlice({
@@ -46,6 +53,12 @@ const carSlice = createSlice({
     setIsRace: (state, action: PayloadAction<boolean>) => {
       state.isRace = action.payload;
     },
+    addCarInRaceArray: (state, action: PayloadAction<winnerCar>) => {
+      state.raceArray = [...state.raceArray, action.payload];
+    },
+    removeAllCarsRaceArray: (state) => {
+      state.raceArray = [];
+    },
   },
 });
 
@@ -57,5 +70,7 @@ export const {
   setColor,
   setPage,
   setIsRace,
+  addCarInRaceArray,
+  removeAllCarsRaceArray,
 } = carSlice.actions;
 export default carSlice.reducer;

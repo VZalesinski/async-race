@@ -2,7 +2,7 @@ import { Button, Flex, Typography } from 'antd';
 import { FC, useEffect, useState } from 'react';
 import { useDeleteCarMutation, useHandleEngineMutation } from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, setCarId } from '@/store';
+import { RootState, addCarInRaceArray, setCarId } from '@/store';
 import { useTotalCars } from '@/hooks';
 import { CarFilled } from '@ant-design/icons';
 import styles from './ItemCar.module.css';
@@ -76,6 +76,8 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
               car.style.transform = 'translate(0, 0)';
               car.style.transitionDuration = '9999s';
             }
+          } else if (isRace) {
+            dispatch(addCarInRaceArray({ id, name: title, time }));
           }
         }
       }
