@@ -1,6 +1,10 @@
 import { Button, Flex, Typography } from 'antd';
 import { FC, useEffect, useState } from 'react';
-import { useDeleteCarMutation, useHandleEngineMutation } from '@/api';
+import {
+  useDeleteCarMutation,
+  useDeleteWinnerMutation,
+  useHandleEngineMutation,
+} from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, addCarInRaceArray, setCarId } from '@/store';
 import { useTotalCars } from '@/hooks';
@@ -20,6 +24,7 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
   );
   const dispatch = useDispatch();
   const [deleteCar] = useDeleteCarMutation();
+  const [deleteWinner] = useDeleteWinnerMutation();
   const car = useSelector((state: RootState) => state.car.carId);
   const isRace = useSelector((state: RootState) => state.car.isRace);
   const fetchTotalCountCars = useTotalCars();
@@ -42,6 +47,7 @@ export const ItemCar: FC<TItemCar> = ({ title, color, id }) => {
 
   const handleDeleteCar = async () => {
     await deleteCar({ id });
+    await deleteWinner(id);
     await fetchTotalCountCars();
   };
 

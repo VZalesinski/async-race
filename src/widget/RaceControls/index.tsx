@@ -4,13 +4,21 @@ import { Button, Flex, Tooltip, notification } from 'antd';
 import { PlayCircleOutlined, ReloadOutlined } from '@ant-design/icons';
 import { RootState, removeAllCarsRaceArray, setIsRace } from '@/store';
 import { timeInSeconds } from '@/utils';
+import {
+  useAddWinnerMutation,
+  useLazyGetWinnerByIdQuery,
+  useUpdateWinnerMutation,
+} from '@/api';
 
 export const RaceControls: FC = () => {
   const isRace = useSelector((state: RootState) => state.car.isRace);
   const dispatch = useDispatch();
   const raceArray = useSelector((state: RootState) => state.car.raceArray);
-
+  const [addWinner] = useAddWinnerMutation();
   const [api, contextHolder] = notification.useNotification();
+  const [getWinnerById, { data: winnerCurrentData }] =
+    useLazyGetWinnerByIdQuery();
+  const [updateWinner] = useUpdateWinnerMutation();
 
   useEffect(() => {
     async function showWinner() {
@@ -28,6 +36,26 @@ export const RaceControls: FC = () => {
       showWinner();
     }
   }, [isRace, raceArray]);
+
+  useEffect(() => {
+    if (isRace && raceArray.length === 1) {
+      const winner = raceArray.reduce((prev, current) => {
+        return prev.time < current.time ? prev : current;
+      });
+      getWinnerById({ id: winner.id });
+      console.log(winnerCurrentData);
+      if (winnerCurrentData?.id === winner.id) {
+        updateWinner({
+          id: winner.id,
+          time:
+            winnerCurrentData.time > winner.time
+              ? winner.time
+              : winnerCurrentData.time,
+          wins: winnerCurrentData.wins + 1,
+        });
+      } else addWinner({ id: winner.id, time: winner.time, wins: 1 });
+    }
+  }, [raceArray, winnerCurrentData]);
 
   const handleStartRace = async () => {
     dispatch(removeAllCarsRaceArray());

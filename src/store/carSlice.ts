@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 // import { IColor } from 'react-color-palette';
 
-interface winnerCar {
+export interface winnerCar {
   id: number;
   name: string;
   time: number;

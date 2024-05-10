@@ -11,6 +11,10 @@ export const carsApi = createApi({
       query: ({ limit, page }) => `/garage?_limit=${limit}&_page=${page}`,
       providesTags: ['Car'],
     }),
+    getCar: build.query<TCar, { id: number }>({
+      query: ({ id }) => `/garage/${id}`,
+      providesTags: ['Car'],
+    }),
     createCar: build.mutation<TCar, { name: string; color: string }>({
       query: (body) => ({
         url: 'garage',
@@ -55,6 +59,7 @@ export const carsApi = createApi({
 
 export const {
   useGetCarsQuery,
+  useLazyGetCarQuery,
   useCreateCarMutation,
   useDeleteCarMutation,
   useUpdateCarMutation,
