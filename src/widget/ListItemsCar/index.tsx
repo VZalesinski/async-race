@@ -46,6 +46,9 @@ export const ListItemsCar = () => {
         <Empty description={'No cars in garage. Create new one'} />
       ) : (
         <Flex vertical>
+          <Typography.Title level={5}>
+            Total cars: {totalCount}
+          </Typography.Title>
           <Flex justify="flex-end">
             <Typography.Title level={3}>Finish</Typography.Title>
           </Flex>

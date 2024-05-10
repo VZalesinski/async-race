@@ -38,6 +38,9 @@ export const TableWinners: FC = () => {
   if (winnersData) {
     return (
       <Flex vertical>
+        <Typography.Title level={5}>
+          Total winners: {totalCount}
+        </Typography.Title>
         <Pagination
           total={totalCount ? totalCount : 0}
           showSizeChanger={false}
