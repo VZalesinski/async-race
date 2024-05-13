@@ -11,7 +11,7 @@ import {
 import { ItemCar } from '@/ui/components';
 import { useGetCarsQuery } from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, setPage } from '@/store';
+import { RootState, removeAllCarsRaceArray, setIsRace, setPage } from '@/store';
 import { useTotalCars } from '@/hooks';
 
 export const ListItemsCar = () => {
@@ -27,6 +27,12 @@ export const ListItemsCar = () => {
   useEffect(() => {
     fetchTotalCountCars();
   }, []);
+
+  const onPaginationChange = (page: number) => {
+    dispatch(setIsRace(false));
+    dispatch(removeAllCarsRaceArray());
+    dispatch(setPage(page));
+  };
 
   if (isLoading) return <Spin size="large" />;
 
@@ -69,7 +75,7 @@ export const ListItemsCar = () => {
         simple
         current={page}
         pageSize={limit}
-        onChange={(page) => dispatch(setPage(page))}
+        onChange={(page) => onPaginationChange(page)}
       />
     </>
   );
