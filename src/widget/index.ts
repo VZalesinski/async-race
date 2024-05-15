@@ -5,3 +5,5 @@ export * from './GenerateCars';
 export * from './RaceControls';
 export * from './TableWinners';
 export * from './SortTable';
+export * from './FormCar';
+export * from './ItemCar';

@@ -8,11 +8,11 @@ import {
   Spin,
   Typography,
 } from 'antd';
-import { ItemCar } from '@/ui/components';
 import { useGetCarsQuery } from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, removeAllCarsRaceArray, setIsRace, setPage } from '@/store';
 import { useTotalCars } from '@/hooks';
+import { ItemCar } from '../ItemCar';
 
 export const ListItemsCar = () => {
   const limit = 7;

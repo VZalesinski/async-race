@@ -1,7 +1,7 @@
-import { FormCar } from '@/ui/components';
 import { useUpdateCarMutation } from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, setUpdateInputValue } from '@/store';
+import { FormCar } from '../FormCar';
 
 export const UpdateCar = () => {
   const updateInputValue = useSelector(
