@@ -55,6 +55,14 @@ export const ListItemsCar = () => {
           <Typography.Title level={5}>
             Total cars: {totalCount}
           </Typography.Title>
+          <Pagination
+            total={totalCount ? totalCount : 0}
+            showSizeChanger={false}
+            simple
+            current={page}
+            pageSize={limit}
+            onChange={(page) => onPaginationChange(page)}
+          />
           <Flex justify="flex-end">
             <Typography.Title level={3}>Finish</Typography.Title>
           </Flex>
@@ -68,15 +76,6 @@ export const ListItemsCar = () => {
           </div>
         </Flex>
       )}
-
-      <Pagination
-        total={totalCount ? totalCount : 0}
-        showSizeChanger={false}
-        simple
-        current={page}
-        pageSize={limit}
-        onChange={(page) => onPaginationChange(page)}
-      />
     </>
   );
 };
