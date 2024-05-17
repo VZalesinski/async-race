@@ -1,5 +1,5 @@
 ## [deploy link](https://vzalesinski.github.io/async-race/)
-## Score: 310
+## Score: 350
 
 # Async-race (React + TS + Vite)
 
@@ -64,7 +64,7 @@
 
 ## 🏗️ Application Architecture (40 points)
 
-- [ ] **Modular Design (40 points):** The application should be clearly divided into logical modules or layers, such as API interaction, UI rendering, and state management. Consultation with a mentor on the architecture before implementation is advised.
+- [x] **Modular Design (40 points):** The application should be clearly divided into logical modules or layers, such as API interaction, UI rendering, and state management. Consultation with a mentor on the architecture before implementation is advised.
 
 ## 📜 Dynamic Content Generation (30 points)
 
