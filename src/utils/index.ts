@@ -1,4 +1,4 @@
-export const API_URL = 'http://127.0.0.1:3000';
+export const API_URL = import.meta.env.VITE_API_URL;
 
 export const timeInSeconds = (time: number) => {
   const result = Number((time / 1000).toFixed(2));
