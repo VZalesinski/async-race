@@ -43,7 +43,6 @@ export const RaceControls: FC = () => {
         return prev.time < current.time ? prev : current;
       });
       getWinnerById({ id: winner.id });
-      console.log(winnerCurrentData);
       if (winnerCurrentData?.id === winner.id) {
         updateWinner({
           id: winner.id,
